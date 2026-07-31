@@ -56,6 +56,9 @@ router.use('/utilisateurs', require('../modules/utilisateurs/utilisateurs.routes
 // --- Module Commerces ---
 router.use('/commerces', require('../modules/commerces/commerces.routes'));
 
+// --- Module Taxes ---
+router.use('/taxes', require('../modules/taxes/taxes.routes'));
+
 // --- Emplacement réservé aux futurs modules ---
 // router.use('/communes', require('../modules/communes/communes.routes'));
 // ...

@@ -10,6 +10,7 @@ require('dotenv').config();
 
 const env = {
   NODE_ENV: process.env.NODE_ENV || 'development',
+  HOST: process.env.HOST || '0.0.0.0',
   PORT: process.env.PORT || 5000,
 
   DB_HOST: process.env.DB_HOST,
@@ -21,7 +22,19 @@ const env = {
   JWT_SECRET: process.env.JWT_SECRET,
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || '1d',
 
-  CORS_ORIGIN: process.env.CORS_ORIGIN || '*',
+  /**
+   * CORS_ORIGIN accepte une liste d'origines separees par des virgules
+   * (ex: "http://localhost:3000,http://192.168.1.8:3000"), pour autoriser
+   * simultanement le PC et un ou plusieurs appareils sur le meme reseau.
+   * "*" reste supporte tel quel pour un usage ponctuel/debug.
+   */
+  CORS_ORIGINS:
+    process.env.CORS_ORIGIN === '*'
+      ? '*'
+      : (process.env.CORS_ORIGIN || 'http://localhost:3000')
+          .split(',')
+          .map((origin) => origin.trim())
+          .filter(Boolean),
 };
 
 module.exports = env;

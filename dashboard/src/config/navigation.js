@@ -18,7 +18,7 @@ import {
 export const navigation = [
   { label: "Tableau de bord", href: "/dashboard", icon: LayoutDashboard },
   { label: "Commerces", href: "/dashboard/commerces", icon: Store },
-  { label: "Taxes", href: "/taxes", icon: Receipt },
+  { label: "Taxes", href: "/dashboard/taxes", icon: Receipt },
   { label: "Paiements", href: "/paiements", icon: Wallet },
   { label: "Carte", href: "/carte", icon: Map },
   { label: "Utilisateurs", href: "/dashboard/utilisateurs", icon: Users },

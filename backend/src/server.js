@@ -16,8 +16,11 @@ async function start() {
     await testConnection();
     console.log('✅ Connecté à PostgreSQL');
 
-    const server = app.listen(env.PORT, () => {
-      console.log(`🚀 Serveur GTFC démarré sur le port ${env.PORT} (${env.NODE_ENV})`);
+    const server = app.listen(env.PORT, env.HOST, () => {
+      console.log(`🚀 Serveur GTFC démarré sur ${env.HOST}:${env.PORT} (${env.NODE_ENV})`);
+      if (env.HOST === '0.0.0.0') {
+        console.log('   Accessible depuis ce PC (localhost) et depuis le réseau local (IP de ce PC).');
+      }
     });
 
     // Arret propre : sur un signal d'arret (Ctrl+C, redeploiement...),

@@ -16,16 +16,28 @@ const env = require('./config/env');
 const routes = require('./routes');
 const notFound = require('./middlewares/notFound');
 const errorHandler = require('./middlewares/errorHandler');
+const ApiError = require('./utils/ApiError');
 
 const app = express();
 
 // --- Sécurité HTTP de base (headers) ---
 app.use(helmet());
 
-// --- CORS : autorise le dashboard / l'app mobile à consommer l'API ---
+// --- CORS : autorise le dashboard (PC ET téléphone sur le même réseau) ---
 app.use(
   cors({
-    origin: env.CORS_ORIGIN,
+    origin(requestOrigin, callback) {
+      // Pas d'origine = appel non-navigateur (curl, Postman, app mobile
+      // native...) : toujours autorisé, il n'y a pas de notion de CORS
+      // en dehors d'un navigateur.
+      if (!requestOrigin) return callback(null, true);
+
+      if (env.CORS_ORIGINS === '*' || env.CORS_ORIGINS.includes(requestOrigin)) {
+        return callback(null, true);
+      }
+
+      callback(new ApiError(403, `Origine non autorisée par CORS : ${requestOrigin}`));
+    },
     credentials: true,
   })
 );

@@ -1,0 +1,24 @@
+# Dépendances
+node_modules/
+
+# Variables d'environnement (jamais commitées)
+.env
+.env.local
+.env*.local
+
+# Builds
+.next/
+dist/
+build/
+
+# Logs
+npm-debug.log*
+*.log
+
+# Système
+.DS_Store
+Thumbs.db
+
+# Éditeurs
+.vscode/
+.idea/
